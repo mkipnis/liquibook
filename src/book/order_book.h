@@ -141,9 +141,9 @@ public:
   /// @brief log the orders in the book.
   std::ostream & log(std::ostream & out) const;
     
-    int inversion_factor() const
+    bool is_inverted() const
     {
-        return is_inverted_ ? -1 : 1;
+        return is_inverted_;
     };
 
 
@@ -379,7 +379,7 @@ template <class OrderPtr>
 Price
 OrderBook<OrderPtr>::market_price() const
 {
-  return marketPrice_ * inversion_factor();
+  return marketPrice_;
 }
 
 template <class OrderPtr>
