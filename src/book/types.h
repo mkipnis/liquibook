@@ -9,9 +9,9 @@
 
 namespace liquibook { namespace book {
   // Types used in Liquibook
-  typedef uint32_t Price;
+  typedef int32_t Price;
   typedef uint32_t Quantity;
-  typedef uint32_t Cost;
+  typedef int32_t Cost;
   typedef uint32_t FillId;
   typedef uint32_t ChangeId;
   typedef uint32_t OrderConditions;

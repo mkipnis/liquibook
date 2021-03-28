@@ -65,7 +65,7 @@ public:
   typedef std::list<typename TrackerMap::iterator> DeferredMatches;
 
   /// @brief construct
-  OrderBook(const std::string & symbol = "unknown");
+  OrderBook(const std::string & symbol = "unknown", bool is_inverted = false );
 
   /// @brief Set symbol for orders in this book.
   void set_symbol(const std::string & symbol);
@@ -140,6 +140,12 @@ public:
 
   /// @brief log the orders in the book.
   std::ostream & log(std::ostream & out) const;
+    
+    int inversion_factor() const
+    {
+        return is_inverted_ ? -1 : 1;
+    };
+
 
 protected:
   /// @brief Internal method to process callbacks.
@@ -285,7 +291,6 @@ protected:
   // End of BookListener Interface
   ///////////////////////////////
 
-
 private:
     bool submit_order(Tracker & inbound);
     bool add_order(Tracker& order_tracker, Price order_price);
@@ -307,17 +312,20 @@ private:
   TypedOrderBookListener* order_book_listener_;
   Logger * logger_;
   Price marketPrice_;
+    
+  bool is_inverted_;
 };
 
 template <class OrderPtr>
-OrderBook<OrderPtr>::OrderBook(const std::string & symbol)
+OrderBook<OrderPtr>::OrderBook(const std::string & symbol, bool is_inverted )
 : symbol_(symbol),
   handling_callbacks_(false),
   order_listener_(nullptr),
   trade_listener_(nullptr),
   order_book_listener_(nullptr),
   logger_(nullptr),
-  marketPrice_(MARKET_ORDER_PRICE)
+  marketPrice_(MARKET_ORDER_PRICE),
+  is_inverted_(is_inverted)
 {
   callbacks_.reserve(16);  // Why 16?  Why not?  
   workingCallbacks_.reserve(callbacks_.capacity());
@@ -371,7 +379,7 @@ template <class OrderPtr>
 Price
 OrderBook<OrderPtr>::market_price() const
 {
-  return marketPrice_;
+  return marketPrice_ * inversion_factor();
 }
 
 template <class OrderPtr>
@@ -704,6 +712,7 @@ OrderBook<OrderPtr>::add_order(Tracker& inbound, Price order_price)
   OrderPtr& order = inbound.ptr();
   DeferredMatches deferred_aons;
   // Try to match with current orders
+  
   if (order->is_buy()) {
     matched = match_order(inbound, order_price, asks_, deferred_aons);
   } else {

@@ -20,7 +20,7 @@ public:
   typedef DepthListener<DepthOrderBook >TypedDepthListener;
 
   /// @brief construct
-  DepthOrderBook(const std::string & symbol = "unknown");
+  DepthOrderBook(const std::string & symbol = "unknown", bool is_inverted = false );
 
   /// @brief set the BBO listener
   void set_bbo_listener(TypedBboListener* bbo_listener);
@@ -63,8 +63,8 @@ private:
 };
 
 template <class OrderPtr, int SIZE>
-DepthOrderBook<OrderPtr, SIZE>::DepthOrderBook(const std::string & symbol)
-: OrderBook<OrderPtr>(symbol),
+DepthOrderBook<OrderPtr, SIZE>::DepthOrderBook(const std::string & symbol, bool is_inverted )
+: OrderBook<OrderPtr>(symbol, is_inverted ),
   bbo_listener_(nullptr),
   depth_listener_(nullptr)
 {
