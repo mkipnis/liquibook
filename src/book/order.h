@@ -42,7 +42,7 @@ inline
 bool
 Order::is_limit() const 
 {
-  return (price() > 0);
+  return true; //(price() > 0);
 }
 
 inline

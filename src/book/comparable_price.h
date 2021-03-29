@@ -45,9 +45,9 @@ public:
     }
     if(buySide_)
     {
-      return rhs < price_  || price_ == MARKET_ORDER_PRICE ;
+      return rhs < price_  /*|| price_ == MARKET_ORDER_PRICE */;
     }
-    return price_ < rhs || rhs == MARKET_ORDER_PRICE;
+    return price_ < rhs /*|| rhs == MARKET_ORDER_PRICE*/;
   }
 
   /// @brief less than compare key to a price
@@ -56,7 +56,7 @@ public:
   bool operator <(Price rhs) const
   {
     // Compare difficulty finding a match.  (easy is less than hard)
-    if(price_ == MARKET_ORDER_PRICE)
+    /*if(price_ == MARKET_ORDER_PRICE)
     {
       return rhs != MARKET_ORDER_PRICE;
     }
@@ -64,7 +64,7 @@ public:
     {
       return false;
     }
-    else if(buySide_)
+    else*/ if(buySide_)
     {
       // Buying: Highest prices first. 
       return rhs < price_ ;
@@ -93,7 +93,7 @@ public:
   /// Assumes both prices are on the same side.
   bool operator > (Price rhs) const
   {
-    return price_!= MARKET_ORDER_PRICE && ((rhs == MARKET_ORDER_PRICE) || (buySide_ ? (rhs > price_) : (price_ > rhs)));
+      return /*price_!= MARKET_ORDER_PRICE && ((rhs == MARKET_ORDER_PRICE) || */(buySide_ ? (rhs > price_) : (price_ > rhs)); //);
   }
 
   /// @brief less than or equal to compare key to a price
@@ -151,7 +151,7 @@ public:
   /// @brief check to see if this is market price
   bool isMarket() const
   {
-    return price_ == MARKET_ORDER_PRICE;
+      return false;//price_ == MARKET_ORDER_PRICE;
   }
 };
 
