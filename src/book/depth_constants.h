@@ -9,9 +9,10 @@ namespace liquibook { namespace book {
 
 namespace {
 // Constants used in liquibook
-const Price INVALID_LEVEL_PRICE(UINT32_MAX);
-const Price MARKET_ORDER_BID_SORT_PRICE(UINT32_MAX);
-const Price MARKET_ORDER_ASK_SORT_PRICE(0);
+//const Price INVALID_LEVEL_PRICE(UINT32_MAX);
+const Price INVALID_LEVEL_PRICE(INT32_MIN);
+const Price MARKET_ORDER_BID_SORT_PRICE(INT32_MAX);
+const Price MARKET_ORDER_ASK_SORT_PRICE(INT32_MIN);
 }
 
 }}

@@ -154,6 +154,9 @@ Depth<SIZE>::Depth()
   ignore_ask_fill_qty_(0)
 {
   memset(levels_, 0, sizeof(DepthLevel) * SIZE * 2);
+  
+  for( auto& level : levels_ )
+    level.set(INVALID_LEVEL_PRICE, 0, 0);
 }
 
 template <int SIZE> 
