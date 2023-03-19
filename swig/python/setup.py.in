@@ -69,7 +69,8 @@ class liquibook_build_ext(build_ext):
           pass
         elif compiler == 'unix':
             self.include_dirs += ['../../src/']
-            extra_compile_args += ['-std=c++11','-stdlib=libc++', '-DSWIG_BUILD']
+            #extra_compile_args += ['-std=c++11','-stdlib=libc++', '-DSWIG_BUILD']
+            extra_compile_args += ['-std=c++11', '-DSWIG_BUILD']
         else:
             pass
 

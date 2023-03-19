@@ -1,3 +1,4 @@
+// Copyright (c) Mike Kipnis
 %module(directors="1") liquibook
 
 #define DEPTH 5
@@ -69,6 +70,14 @@ using namespace liquibook::simple;
 %include "../src/book/depth.h"
 %include "../src/simple/simple_order.h"
 %include "../src/simple/simple_order_book.h"
+
+%template(liquibook_book_OrderBook) liquibook::book::OrderBook<std::shared_ptr<liquibook::simple::SimpleOrder>>;
+%template(liquibook_book_OrderBookListener) liquibook::book::OrderBookListener< liquibook::book::DepthOrderBook<std::shared_ptr<liquibook::simple::SimpleOrder>,DEPTH>  >;
+
+%template(liquibook_book_Depth) liquibook::book::Depth<DEPTH>;
+
+%template(depth_level_vector) std::vector<liquibook::book::DepthLevel*>;
+
 
 %extend liquibook::book::Depth<DEPTH> {
   
