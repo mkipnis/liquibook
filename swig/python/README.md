@@ -1,4 +1,60 @@
-# Copyright (c) Mike Kipnis
+
+This project is a python wrapper for Liquibook.  Liquibook is a low latency open source order matching engine written in modern C++ -
+[Liquibook Source Code](https://github.com/enewhuis/liquibook)
+
+This project allows to submit orders and receive the following notifications:
+
+* #### Order State
+    * Order accepted
+    * Order rejected
+    * Order filled (full or partial)
+    * Order replaced
+    * Replace request rejected
+    * Order canceled
+    * Cancel request rejected.
+
+* #### Order Book State
+    * Depth book changed
+    * Best Bid or Best Offer (BBO) changed
+
+---
+
+### Example:
+* #### Submitting Buy - Price : 100     Size: 10  
+    * Receive and print
+        * Order accept details
+        * Price depth
+        * BBO Change
+    
+* #### Submitting Buy - Price : 110     Size: 10 
+    * Receive and print
+        * Order accept details
+        * Price depth
+        * BBO Change
+
+* #### Submitting Sell - Price : 120     Size: 30     
+    * Receive and print
+        * Order accept details
+        * Price depth
+        * BBO Change
+
+
+* #### Cancelling Sell - Price : 120     Size: 30 
+    * Receive and print
+        * Order cancel details
+        * Price depth
+        * BBO Change
+
+* #### Submitting Sell - Price : 100     Size: 25 
+    * Receive and print
+        * Order accept details
+        * Trades @110
+        * Trades @100 
+        * Price depth
+        * BBO Change
+
+---
+```
 import liquibook
 from liquibook import pretty_print
 import time
@@ -118,3 +174,4 @@ if __name__ == '__main__':
     basic_order_book.add(sell_order_2)
     print(transaction_seprator)
 
+```

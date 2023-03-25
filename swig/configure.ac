@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([liquibook-swig], [0.0.1],
+AC_INIT([liquibook-swig], [1.0.0],
         [mike.kipnis@gmail.com],
         [liquibook-swig])
 AC_PREREQ(2.50)
