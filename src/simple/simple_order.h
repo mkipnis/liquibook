@@ -79,6 +79,10 @@ public:
   /// @param new_price the new price
   void replace(book::Quantity size_delta, book::Price new_price);
 
+#ifdef SWIG_BUILD
+  SimpleOrder() : order_id_(0) {};
+#endif
+
 private:
   OrderState state_;
   bool is_buy_;

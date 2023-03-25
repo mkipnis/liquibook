@@ -45,6 +45,10 @@ public:
 
   Quantity reserve(int64_t reserved);
 
+#ifdef SWIG_BUILD
+  OrderTracker() {};
+#endif
+
 private:
   OrderPtr order_;
   Quantity open_qty_;

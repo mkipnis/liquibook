@@ -153,6 +153,11 @@ public:
   {
     return price_ == MARKET_ORDER_PRICE;
   }
+
+#ifdef SWIG_BUILD
+	ComparablePrice() {};
+#endif
+
 };
 
 /// @brief less than compare price to key

@@ -26,10 +26,10 @@ namespace liquibook { namespace book {
 
   namespace {
   // Constants used in liquibook API
-  const Price MARKET_ORDER_PRICE(0);
-  const Price PRICE_UNCHANGED(0);
-  const Quantity QUANTITY_MAX(UINT64_MAX);
-  const int64_t SIZE_UNCHANGED(0);
+  const Price MARKET_ORDER_PRICE = 0;
+  const Price PRICE_UNCHANGED = 0;
+  const Quantity QUANTITY_MAX = UINT64_MAX;
+  const int64_t SIZE_UNCHANGED = 0;
   }
 
 } } // namespace
