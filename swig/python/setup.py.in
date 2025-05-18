@@ -25,7 +25,7 @@ class liquibook_wrap(Command):
         swig_dir = os.path.join("..","swig")
         os.system('swig -python -globals -c++ ' + 
                   '-I%s ' % swig_dir +
-                  '-outdir liquibook -o liquibook/liquibook_wrap.cpp ' +
+                  '-outdir liquibook -o liquibook.dir/liquibookPYTHON_wrap.cxx ' +
                   '../liquibook.i')
 
 class liquibook_build(build):
@@ -63,12 +63,12 @@ class liquibook_build_ext(build_ext):
         extra_link_args = []
 
         compiler = self.compiler or get_default_compiler()
+        self.include_dirs.append('@CMAKE_SOURCE_DIR@/src/')
+        print(self.include_dirs)
 
         if compiler == 'msvc':
-            self.include_dirs += ['../../src/']
             extra_compile_args += ['-DSWIG_BUILD']
         elif compiler == 'unix':
-            self.include_dirs += ['../../src/']
             extra_compile_args += ['-std=c++11', '-DSWIG_BUILD']
         else:
             pass
@@ -86,7 +86,6 @@ classifiers = [
     'Environment :: Console',
     'Intended Audience :: Developers',
     'Intended Audience :: End Users/Desktop',
-    'License :: OSI Approved :: BSD License',
     'Natural Language :: English',
     'Programming Language :: C++',
     'Programming Language :: Python',
@@ -100,26 +99,37 @@ classifiers = [
 
 from pathlib import Path
 this_directory = Path(__file__).parent
-long_description = (this_directory / "README.md").read_text()
+source_dir = Path("@CMAKE_CURRENT_SOURCE_DIR@") / "python"
+long_description = ""
+readme_path = Path("@CMAKE_SOURCE_DIR@/python/README.md")
+if readme_path.exists():
+    long_description = readme_path.read_text(encoding="utf-8")
 
-setup(name             = "liquibook",
-      version          = "@PACKAGE_VERSION@",
-      description      = "Order Matching Engine and Market Data - Liquibook",
-      long_description_content_type='text/markdown',
-      long_description = long_description,
-      author           = "Mike Kipnis",
-      author_email     = "mike.kipnis@gmail.com",
-      url              = "https://www.github.com/mkipnis/liquibook",
-      license          = "BSD 3-Clause",
-      classifiers      = classifiers,
-      py_modules       = ['liquibook.__init__','liquibook.liquibook','liquibook.pretty_print'],
-      ext_modules      = [Extension("liquibook._liquibook",
-                                    ["liquibook/liquibook_wrap.cpp"])
-                         ],
-      data_files       = [('share/doc/liquibook', ['../license.txt'])],
-      cmdclass         = { 'wrap': liquibook_wrap,
-                          'build': liquibook_build,
-                          'build_ext': liquibook_build_ext,
-                          }
-      )
-
+setup(
+    name="liquibook",
+    version="@PROJECT_VERSION@",
+    description="Order Matching Engine and Market Data - Liquibook",
+    long_description_content_type='text/markdown',
+    long_description=long_description,
+    author="Mike Kipnis",
+    author_email="mike.kipnis@gmail.com",
+    url="https://www.github.com/mkipnis/liquibook",
+    license="BSD 3-Clause",
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "Operating System :: OS Independent"
+    ],
+    packages=["liquibook"],
+    ext_modules=[
+        Extension(
+            "liquibook._liquibook",
+            ["../CMakeFiles/liquibook.dir/liquibookPYTHON_wrap.cxx"]
+        )
+    ],
+    data_files       = [('share/doc/liquibook', ['@CMAKE_CURRENT_SOURCE_DIR@/license.txt'])],
+    cmdclass={
+        'wrap': liquibook_wrap,
+        'build': liquibook_build,
+        'build_ext': liquibook_build_ext,
+    }
+)
