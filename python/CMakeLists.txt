@@ -37,7 +37,7 @@ if(Python_FOUND)
 
   target_include_directories(liquibook PRIVATE ${Python_INCLUDE_DIRS} ${LIQUIBOOK_SRC})
   target_link_libraries(liquibook PRIVATE ${PYTHON_LIBRARIES})
-  target_link_libraries(liquibook PRIVATE /opt/homebrew/Frameworks/Python.framework/Versions/Current/lib/libpython3.13.dylib)
+  # uncomment for mac: target_link_libraries(liquibook PRIVATE /opt/homebrew/Frameworks/Python.framework/Versions/Current/lib/libpython3.13.dylib)
 
   add_custom_command(TARGET liquibook POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_CURRENT_SOURCE_DIR}/liquibook"
