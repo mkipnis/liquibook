@@ -1,7 +1,9 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.15)
 
 cmake_policy(SET CMP0078 NEW)
 cmake_policy(SET CMP0086 NEW)
+
+project(liquibook VERSION 1.0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -22,7 +24,7 @@ if(Python_FOUND)
   include(UseSWIG)
   add_compile_options(-DSWIG_BUILD)
 
-  set(CMAKE_SWIG_FLAGS "-py3" "-modern" "-builtin")
+  set(CMAKE_SWIG_FLAGS "-builtin")
 
   set_source_files_properties(liquibook.i PROPERTIES
     CPLUSPLUS ON SWIG_DIRECTORS ON
@@ -37,7 +39,7 @@ if(Python_FOUND)
 
   target_include_directories(liquibook PRIVATE ${Python_INCLUDE_DIRS} ${LIQUIBOOK_SRC})
   target_link_libraries(liquibook PRIVATE ${PYTHON_LIBRARIES})
-  target_link_libraries(liquibook PRIVATE /opt/homebrew/Frameworks/Python.framework/Versions/Current/lib/libpython3.13.dylib)
+  # Uncomment for mac: target_link_libraries(liquibook PRIVATE /opt/homebrew/Frameworks/Python.framework/Versions/Current/lib/libpython3.13.dylib)
 
   add_custom_command(TARGET liquibook POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_CURRENT_SOURCE_DIR}/liquibook"
