@@ -68,7 +68,7 @@ def order(order):
             'is_buy': order.is_buy(),
             'state': order.state(),
             'price': order.price(),
-            'stop_price':  order.order_qty(),
+            'stop_price':  order.stop_price(),
             'order_qty': order.order_qty(),
             'open_qty': order.open_qty(),
             'filled_qty': order.filled_qty(),

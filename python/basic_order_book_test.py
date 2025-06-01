@@ -1,7 +1,9 @@
 # Copyright (c) Mike Kipnis
 import liquibook
-from liquibook import pretty_print
+from liquibook.helpers import pretty_print
 import time
+
+print(dir(liquibook))
 
 class DepthListener(liquibook.DepthListener):
 
@@ -11,9 +13,9 @@ class DepthListener(liquibook.DepthListener):
 
     def on_depth_change(self, book, depth):
         print('Depth change:[' + book.symbol() + ']')
-        print(liquibook.pretty_print.depth_header)
-        print(liquibook.pretty_print.depth_header_separator)
-        pretty_depth = liquibook.pretty_print.depth(depth)
+        print(pretty_print.depth_header)
+        print(pretty_print.depth_header_separator)
+        pretty_depth = pretty_print.depth(depth)
         print(pretty_depth)
         print('\n')
 
@@ -26,18 +28,18 @@ class OrderListener(liquibook.OrderListener):
 
     def on_accept(self, order):
         print('Order accepted: [' + str(order.order_id_) + ']')
-        order_string = liquibook.pretty_print.order(order)
-        print(liquibook.pretty_print.order_header)
-        print(liquibook.pretty_print.order_header_separator)
+        order_string = pretty_print.order(order)
+        print(pretty_print.order_header)
+        print(pretty_print.order_header_separator)
         print(order_string)
         print('\n')
 
 
     def on_cancel(self, order):
         print('Order cancelled: [' + str(order.order_id_) + ']')
-        order_string = liquibook.pretty_print.order(order)
-        print(liquibook.pretty_print.order_header)
-        print(liquibook.pretty_print.order_header_separator)
+        order_string = pretty_print.order(order)
+        print(pretty_print.order_header)
+        print(pretty_print.order_header_separator)
         print(order_string)
         print('\n')
 
@@ -48,10 +50,10 @@ class OrderListener(liquibook.OrderListener):
 
         print('Orders Filled: @' + str(fill_cost) + '')
 
-        print(liquibook.pretty_print.order_header)
-        print(liquibook.pretty_print.order_header_separator)
-        aggressive_order_string = liquibook.pretty_print.order(passive_order)
-        passive_order_order_string = liquibook.pretty_print.order(aggressive_order)
+        print(pretty_print.order_header)
+        print(pretty_print.order_header_separator)
+        aggressive_order_string = pretty_print.order(passive_order)
+        passive_order_order_string = pretty_print.order(aggressive_order)
         print(aggressive_order_string)
         print(passive_order_order_string+'\n')
 
@@ -64,12 +66,12 @@ class BBOListener(liquibook.DepthOrderBookBboListener):
 
     def on_bbo_change(self, book, depth):
         print('Best bid/offer change: [' + book.symbol() + ']')
-        print(liquibook.pretty_print.depth_header)
-        print(liquibook.pretty_print.depth_header_separator)
-        bid_price_size_tuple = liquibook.pretty_print.depth_level(depth.bids())
-        ask_price_size_tuple = liquibook.pretty_print.depth_level(depth.asks())
+        print(pretty_print.depth_header)
+        print(pretty_print.depth_header_separator)
+        bid_price_size_tuple = pretty_print.depth_level(depth.bids())
+        ask_price_size_tuple = pretty_print.depth_level(depth.asks())
 
-        top_level_out = liquibook.pretty_print.depth_header_format.\
+        top_level_out = pretty_print.depth_header_format.\
                 format(bid=bid_price_size_tuple, ask=ask_price_size_tuple)
         print(top_level_out+'\n')
 
@@ -86,7 +88,7 @@ if __name__ == '__main__':
     basic_order_book.set_order_listener(order_listener)
     basic_order_book.set_symbol('AAPL')
 
-    transaction_seprator="="*len(liquibook.pretty_print.order_header)
+    transaction_seprator="="*len(pretty_print.order_header)
 
     print(transaction_seprator)
     buy_order_1 = liquibook.SimpleOrder(True, 100, 10)

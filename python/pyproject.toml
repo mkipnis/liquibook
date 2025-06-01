@@ -1,0 +1,28 @@
+[build-system]
+requires = [
+  "setuptools>=61.0",
+  "wheel",
+  "scikit-build-core>=0.5.0",
+  "cmake",
+  "ninja"
+]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "liquibook"
+version = "1.0.1"
+description = "Order Matching Engine and Market Data - Liquibook"
+authors = [{ name = "Mike Kipnis", email = "mike.kipnis@gmail.com" }]
+readme = "README.md"
+license = { text = "MIT" }
+classifiers = [
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent"
+]
+requires-python = ">=3.8"
+
+[tool.scikit-build]
+wheel.packages = ["liquibook"]
+cmake.verbose = true
