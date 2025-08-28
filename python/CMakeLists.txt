@@ -11,7 +11,7 @@ message(STATUS "System: ${CMAKE_SYSTEM_NAME}")
 
 option(BUILD_PYTHON "Build Python module" ON)
 
-find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development.Module)
 
 if(Python_FOUND)
 
@@ -24,7 +24,7 @@ if(Python_FOUND)
   include(UseSWIG)
   add_compile_options(-DSWIG_BUILD)
 
-  set(CMAKE_SWIG_FLAGS "-builtin")
+  set(CMAKE_SWIG_FLAGS "-builtin" "-DSWIG_BUILD")
 
   set_source_files_properties(liquibook.i PROPERTIES
     CPLUSPLUS ON SWIG_DIRECTORS ON

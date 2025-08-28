@@ -45,6 +45,10 @@ public:
 
   /// @brief callback for an order replace rejection
   virtual void on_replace_reject(const OrderPtr& order, const char* reason) = 0;
+
+#ifdef SWIG_BUILD
+  virtual ~OrderListener() {};
+#endif
 };
 
 } }

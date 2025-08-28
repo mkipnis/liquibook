@@ -7,7 +7,7 @@
 
 namespace liquibook { namespace simple {
 
-uint32_t SimpleOrder::last_order_id_(0);
+uint64_t SimpleOrder::last_order_id_(0);
 
 SimpleOrder::SimpleOrder(
   bool is_buy,
@@ -127,12 +127,12 @@ SimpleOrder::cancel()
 }
 
 void
-SimpleOrder::replace(book::Quantity size_delta, book::Price new_price)
+SimpleOrder::replace(int64_t size_delta, book::Price new_price)
 {
   if (os_accepted == state_) {
     order_qty_ += size_delta;
     price_ = new_price;
-  }
+  } 
 }
 
 } }

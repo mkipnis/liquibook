@@ -77,10 +77,11 @@ public:
   /// @brief exchange replaced this order
   /// @param size_delta change to the order quantity
   /// @param new_price the new price
-  void replace(book::Quantity size_delta, book::Price new_price);
+  void replace(int64_t size_delta, book::Price new_price);
 
 #ifdef SWIG_BUILD
   SimpleOrder() : order_id_(0) {};
+  virtual ~SimpleOrder() {};
 #endif
 
 private:
@@ -92,10 +93,10 @@ private:
   book::OrderConditions conditions_;
   book::Quantity filled_qty_;
   book::Cost filled_cost_;
-  static uint32_t last_order_id_;
+  static uint64_t last_order_id_;
 
 public:
-  const uint32_t order_id_;
+  const uint64_t order_id_;
 };
 
 } }

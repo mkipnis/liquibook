@@ -19,7 +19,7 @@ public:
   /// @brief get price
   const Price& price() const;
   /// @brief get count
-  uint32_t order_count() const;
+  uint64_t order_count() const;
   /// @brief get aggregate quantity
   Quantity aggregate_qty() const;
   /// @brief is this level part of the excess
@@ -46,7 +46,7 @@ public:
   /// @param last_change the last change ID (optional)
   void set(Price price, 
            Quantity qty,
-           uint32_t order_count,
+           uint64_t order_count,
            ChangeId last_change = 0);
 
   /// @brief cancel or fill an order, decrease count and quantity
@@ -66,7 +66,7 @@ public:
 
 private:
   Price price_;
-  uint32_t order_count_;
+  uint64_t order_count_;
   Quantity aggregate_qty_;
   bool is_excess_;
 public:
@@ -121,7 +121,7 @@ DepthLevel::init(Price price, bool is_excess)
 }
 
 inline
-uint32_t
+uint64_t
 DepthLevel::order_count() const
 {
   return order_count_;
@@ -173,7 +173,7 @@ inline
 void
 DepthLevel::set(Price price, 
   Quantity qty,
-  uint32_t order_count,
+  uint64_t order_count,
   ChangeId last_change)
 {
   price_ = price;

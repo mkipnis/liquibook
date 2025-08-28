@@ -14,14 +14,18 @@ template <int SIZE = 5>
 class SimpleOrderBook : public book::DepthOrderBook<SimpleOrder*, SIZE> {
 public:
   typedef book::Callback<SimpleOrder*> SimpleCallback;
-  typedef uint32_t FillId;
+  typedef uint64_t FillId;
 
   SimpleOrderBook();
+#ifdef SWIG_BUILD
+  virtual ~SimpleOrderBook() {};
+#endif
 
   // Override callback handling to update SimpleOrder state
   virtual void perform_callback(SimpleCallback& cb);
 private:
   FillId fill_id_;
+
 };
 
 template <int SIZE>

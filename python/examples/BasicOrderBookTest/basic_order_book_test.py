@@ -76,6 +76,9 @@ class BBOListener(liquibook.DepthOrderBookBboListener):
         print(top_level_out+'\n')
 
 
+def sleep_on_it():
+    time.sleep(0.5)
+
 if __name__ == '__main__':
 
     order_book_listener = DepthListener()
@@ -93,30 +96,35 @@ if __name__ == '__main__':
     print(transaction_seprator)
     buy_order_1 = liquibook.SimpleOrder(True, 100, 10)
     print('Submitting Buy - Price : {:<7} Size: {:<7}'.format(buy_order_1.price(), buy_order_1.order_qty()))
-    time.sleep(1)
+    sleep_on_it()
     basic_order_book.add(buy_order_1)
     print(transaction_seprator)
 
     buy_order_2 = liquibook.SimpleOrder(True, 110, 10)
     print('\n\nSubmitting Buy - Price : {:<7} Size: {:<7}'.format(buy_order_2.price(), buy_order_2.order_qty()))
-    time.sleep(1)
+    sleep_on_it()
     basic_order_book.add(buy_order_2)
     print(transaction_seprator)
 
     sell_order_1 = liquibook.SimpleOrder(False, 120, 30)
     print('\n\nSubmitting Sell - Price : {:<7} Size: {:<7}'.format(sell_order_1.price(), sell_order_1.order_qty()))
-    time.sleep(2)
+    sleep_on_it()
     basic_order_book.add(sell_order_1)
     print(transaction_seprator)
 
     print('\n\nCancelling Sell - Price : {:<7} Size: {:<7}'.format(sell_order_1.price(), sell_order_1.order_qty()))
-    time.sleep(2)
+    sleep_on_it()
     basic_order_book.cancel(sell_order_1)
     print(transaction_seprator)
 
     sell_order_2 = liquibook.SimpleOrder(False, 100, 25)
     print('\n\nSubmitting Sell - Price : {:<7} Size: {:<7}'.format(sell_order_2.price(), sell_order_2.order_qty()))
-    time.sleep(2)
+    sleep_on_it()
     basic_order_book.add(sell_order_2)
     print(transaction_seprator)
 
+    buy_order_lock = liquibook.SimpleOrder(True, 100, 25, 0, 1)
+    print('\n\nSubmitting Sell - Price : {:<7} Size: {:<7}'.format(buy_order_lock.price(), buy_order_lock.order_qty()))
+    sleep_on_it()
+    basic_order_book.add(buy_order_lock, 1)
+    print(transaction_seprator)

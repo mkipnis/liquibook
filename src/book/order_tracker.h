@@ -47,6 +47,7 @@ public:
 
 #ifdef SWIG_BUILD
   OrderTracker() {};
+  virtual ~OrderTracker() {};
 #endif
 
 private:
