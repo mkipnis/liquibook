@@ -67,6 +67,10 @@ public:
   /// @brief construct
   OrderBook(const std::string & symbol = "unknown");
 
+#ifdef SWIG_BUILD
+  virtual ~OrderBook() {};
+#endif
+
   /// @brief Set symbol for orders in this book.
   void set_symbol(const std::string & symbol);
 

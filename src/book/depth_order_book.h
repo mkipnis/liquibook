@@ -34,6 +34,10 @@ public:
   // @brief access the depth tracker
   const DepthTracker& depth() const;
 
+#ifdef SWIG_BUILD
+  virtual ~DepthOrderBook() {};
+#endif
+
   protected:
   //////////////////////////////////
   // Implement virtual callback methods
@@ -58,6 +62,7 @@ public:
     Price new_price);
 
   virtual void on_order_book_change();
+
 
 private:
   DepthTracker depth_;

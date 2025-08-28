@@ -13,6 +13,11 @@ class OrderBookListener {
 public:
   /// @brief callback for change anywhere in order book
   virtual void on_order_book_change(const OrderBook* book) = 0;
+
+#ifdef SWIG_BUILD
+  virtual ~OrderBookListener() {};
+#endif
+
 };
 
 } }

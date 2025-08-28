@@ -36,6 +36,11 @@ public:
   /// @brief After generating as many trades as possible against
   /// orders already on the market, cancel any remaining quantity.
   virtual bool immediate_or_cancel() const;
+
+#ifdef SWIG_BUILD
+  virtual ~Order() {};
+#endif
+
 };
 
 inline

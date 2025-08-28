@@ -209,3 +209,9 @@ The MPC program used to create the build files and the Boost library used in the
 See the [MPC documentation](https://github.com/objectcomputing/MPC) for details about using MPC in your enviornment.
 
 See the [Boost website](http://www.boost.org/) for details about using Boost in your environment.
+
+## CMake build
+
+cmake -S . -B build -DCMAKE_INSTALL_PREFIX=$HOME
+cmake --build build
+cmake --install build

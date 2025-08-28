@@ -16,6 +16,10 @@ public:
   virtual void on_depth_change(
       const OrderBook* book,
       const typename OrderBook::DepthTracker* depth) = 0;
+
+#ifdef SWIG_BUILD
+  virtual ~DepthListener() {};
+#endif
 };
 
 } }

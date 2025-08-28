@@ -12,6 +12,11 @@ class Logger
 public:
   virtual void log_exception(const std::string & context, const std::exception& ex) = 0;
   virtual void log_message(const std::string & message) = 0;
+
+#ifdef SWIG_BUILD
+  virtual ~Logger() {};
+#endif
+
 };
 
 }}
