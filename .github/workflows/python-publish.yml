@@ -33,7 +33,7 @@ jobs:
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
         env:
-          CIBW_SKIP: "*-win32"
+          CIBW_SKIP: "cp314-* *-win32"
           CIBW_BUILD_VERBOSITY: "3"
 
       - name: Upload wheels
