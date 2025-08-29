@@ -51,12 +51,21 @@ jobs:
           choco install swig cmake --no-progress -y
           swig -version
 
+      # Clean previous build artifacts (platform-specific)
+      - name: Clean previous build (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: rm -rf build/ python/*.cxx python/*.py
+
+      - name: Clean previous build (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          Remove-Item -Recurse -Force build
+          Remove-Item -Recurse -Force python\*.cxx -ErrorAction SilentlyContinue
+          Remove-Item -Recurse -Force python\*.py -ErrorAction SilentlyContinue
+        shell: pwsh
+
       - name: Install cibuildwheel
         run: python -m pip install cibuildwheel
-
-      - name: Clean previous build (optional but recommended)
-        run: |
-          rm -rf build/ python/*.cxx python/*.py || true
 
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
