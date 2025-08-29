@@ -23,12 +23,40 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Install Windows Build Tools
+      # Install CMake and SWIG on all platforms using pip first
+      - name: Install build dependencies (pip)
+        run: python -m pip install --upgrade pip cmake swig
+
+      # Ensure latest SWIG on Linux
+      - name: Install latest SWIG (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          conda install -c conda-forge swig || true
+          sudo apt-get update
+          sudo apt-get install -y swig cmake
+          swig -version
+
+      # Ensure latest SWIG on macOS
+      - name: Install latest SWIG (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew update
+          brew install swig cmake
+          swig -version
+
+      # Ensure latest SWIG on Windows
+      - name: Install latest SWIG (Windows)
         if: runner.os == 'Windows'
-        run: choco install -y visualstudio2019buildtools
+        run: |
+          choco install swig cmake --no-progress -y
+          swig -version
 
       - name: Install cibuildwheel
         run: python -m pip install cibuildwheel
+
+      - name: Clean previous build (optional but recommended)
+        run: |
+          rm -rf build/ python/*.cxx python/*.py || true
 
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
