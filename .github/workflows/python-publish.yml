@@ -23,35 +23,34 @@ jobs:
         with:
           python-version: "3.x"
 
-      # Install CMake and SWIG on all platforms using pip first
-      - name: Install build dependencies (pip)
-        run: python -m pip install --upgrade pip cmake swig
-
-      # Ensure latest SWIG on Linux
-      - name: Install latest SWIG (Linux)
+      # Ensure latest CMake & SWIG on Linux
+      - name: Install build tools (Linux)
         if: runner.os == 'Linux'
         run: |
-          conda install -c conda-forge swig || true
           sudo apt-get update
-          sudo apt-get install -y swig cmake
+          sudo apt-get install -y cmake swig
+          cmake --version
           swig -version
 
-      # Ensure latest SWIG on macOS
-      - name: Install latest SWIG (macOS)
+      # Ensure latest CMake & SWIG on macOS (remove pinned first)
+      - name: Install build tools (macOS)
         if: runner.os == 'macOS'
         run: |
           brew update
-          brew install swig cmake
+          brew uninstall --ignore-dependencies cmake swig || true
+          brew install cmake swig
+          cmake --version
           swig -version
 
-      # Ensure latest SWIG on Windows
-      - name: Install latest SWIG (Windows)
+      # Ensure latest CMake & SWIG on Windows
+      - name: Install build tools (Windows)
         if: runner.os == 'Windows'
         run: |
-          choco install swig cmake --no-progress -y
+          choco install cmake swig --no-progress -y
+          cmake --version
           swig -version
 
-      # Clean previous build artifacts (platform-specific)
+      # Clean previous build artifacts
       - name: Clean previous build (Linux/macOS)
         if: runner.os != 'Windows'
         run: rm -rf build/ python/*.cxx python/*.py
@@ -65,7 +64,7 @@ jobs:
         shell: pwsh
 
       - name: Install cibuildwheel
-        run: python -m pip install cibuildwheel
+        run: python -m pip install --upgrade pip cibuildwheel
 
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
