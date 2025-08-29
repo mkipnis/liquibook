@@ -1,6 +1,8 @@
 // Copyright (c) Mike Kipnis
 %module(directors="1") liquibook
 
+%feature("director:oldvarinit") "";
+
 #define DEPTH 5
 
 %{
