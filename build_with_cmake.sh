@@ -1,7 +1,6 @@
 #!/bin/bash
 
 rm -rf build
-#cmake -B build -S . -DCMAKE_INSTALL_PREFIX=$HOME -DBUILD_PYTHON=ON
 cmake -B build -S . -DCMAKE_INSTALL_PREFIX=$HOME
 cmake --build build --target install
 
