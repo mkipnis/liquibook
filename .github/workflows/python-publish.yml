@@ -23,38 +23,20 @@ jobs:
         with:
           python-version: "3.x"
 
-      # Ensure latest CMake & SWIG on Linux
-      - name: Install build tools (Linux)
-        if: runner.os == 'Linux'
+      # Install CMake and SWIG consistently on all platforms using pip
+      - name: Install build dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y cmake swig
-          cmake --version
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade cmake swig
           swig -version
-
-      # Ensure latest CMake & SWIG on macOS (remove pinned first)
-      - name: Install build tools (macOS)
-        if: runner.os == 'macOS'
-        run: |
-          brew update
-          brew uninstall --ignore-dependencies cmake swig || true
-          brew install cmake swig
           cmake --version
-          swig -version
 
-      # Ensure latest CMake & SWIG on Windows
-      - name: Install build tools (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          choco install cmake swig --no-progress -y
-          cmake --version
-          swig -version
-
-      # Clean previous build artifacts
+      # Clean previous build artifacts (Linux/macOS)
       - name: Clean previous build (Linux/macOS)
         if: runner.os != 'Windows'
         run: rm -rf build/ python/*.cxx python/*.py
 
+      # Clean previous build artifacts (Windows)
       - name: Clean previous build (Windows)
         if: runner.os == 'Windows'
         run: |
@@ -64,7 +46,7 @@ jobs:
         shell: pwsh
 
       - name: Install cibuildwheel
-        run: python -m pip install --upgrade pip cibuildwheel
+        run: python -m pip install cibuildwheel
 
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
