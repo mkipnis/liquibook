@@ -59,9 +59,9 @@ jobs:
       - name: Clean previous build (Windows)
         if: runner.os == 'Windows'
         run: |
-          Remove-Item -Recurse -Force build
-          Remove-Item -Recurse -Force python\*.cxx -ErrorAction SilentlyContinue
-          Remove-Item -Recurse -Force python\*.py -ErrorAction SilentlyContinue
+          if (Test-Path build) { Remove-Item -Recurse -Force build }
+          Get-ChildItem python -Filter *.cxx -ErrorAction SilentlyContinue | Remove-Item -Force -ErrorAction SilentlyContinue
+          Get-ChildItem python -Filter *.py -ErrorAction SilentlyContinue | Remove-Item -Force -ErrorAction SilentlyContinue
         shell: pwsh
 
       - name: Install cibuildwheel
