@@ -103,6 +103,5 @@ jobs:
       - name: Publish wheels to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          user: mkipnis
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages-dir: dist/
