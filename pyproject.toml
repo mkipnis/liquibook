@@ -10,8 +10,9 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "liquibook"
-version = "1.0.1"
+version = "2.0.1"
 description = "Python wrapper for LiquiBook - Order Matching Engine and Market Data"
+readme = "README_PYPI.md"
 authors = [{ name = "Mike Kipnis", email = "mike.kipnis@gmail.com" }]
 requires-python = ">=3.8"
 

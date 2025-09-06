@@ -1,8 +1,8 @@
 import json
+import liquibook
 from liquibook_adapter import DepthListener
 from liquibook_adapter import BBOListener
 from liquibook_adapter import OrderListener
-from liquibook import liquibook
 from liquibook.helpers import json_serializer
 import logging
 
