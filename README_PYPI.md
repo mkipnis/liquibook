@@ -1,6 +1,12 @@
-
 This project is a python wrapper for Liquibook.  Liquibook is a low latency open source order matching engine written in modern C++ -
 [Liquibook Source Code](https://github.com/enewhuis/liquibook)
+
+
+
+[Liquibook Sandbox](https://github.com/mkipnis/liquibook/tree/master/python/examples/LiquiBookSandbox)
+
+![Liquibook Sandbox](https://raw.githubusercontent.com/mkipnis/liquibook/master/python/examples/liquibook_demo.gif)
+
 
 This project allows to submit orders and receive the following notifications:
 
