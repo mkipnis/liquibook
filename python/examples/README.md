@@ -8,10 +8,10 @@ pip install -r requirements.txt
 
 Basic order book test
 ---------------------
-python3 BasicOrderBookTest/basic_order_book_test.py  
+python BasicOrderBookTest/basic_order_book_test.py  
 
 LiquiBook Sandbox
 -----------------
-python3 LiquiBookSandbox/LiquiBookSandbox.py  
+python LiquiBookSandbox/LiquiBookSandbox.py  
 
 ![LiquiBook Sandbox Demo](liquibook_demo.gif)
