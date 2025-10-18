@@ -4,4 +4,7 @@ docker build -t liquibook:latest -f Dockerfile .
 
 To run it
 ---
-docker run -d -p 8050:8050 liquibook:latest
+docker run -p 8050:8050 liquibook:latest
+
+
+http://localhost:8050
