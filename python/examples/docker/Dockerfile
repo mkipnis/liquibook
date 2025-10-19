@@ -1,39 +1,66 @@
 # =========================
-# Stage 1: Build Liquibook
+# Stage 1: Builder
 # =========================
-FROM ubuntu:latest AS builder
+FROM python:3.13-slim AS builder
 
 # Install build dependencies
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    cmake \
     git \
-    python3 \
-    python3-pip \
-    python3-build \
     python3-venv \
     swig \
-    && rm -rf /var/lib/apt/lists/*
+    wget \
+ && rm -rf /var/lib/apt/lists/*
 
-# Clone Liquibook repository
+# Install latest CMake from PyPI
+RUN pip install --no-cache-dir cmake build
+
+# Set working directory
 WORKDIR /app
-RUN git clone -b pypi_setup https://github.com/mkipnis/liquibook liquibook
 
+# Clone Liquibook source
+RUN git clone -b master https://github.com/mkipnis/liquibook liquibook
 WORKDIR /app/liquibook
 
-# Build and install Liquibook C++ core
+# Build Liquibook C++ core
 RUN cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local \
-    && cmake --build build --target install
-RUN CMAKE_ARGS="-DLIQUIBOOK_SRC=$(pwd)/src -DBUILD_PYTHON=ON" python3 -m build --wheel
+ && cmake --build build --target install
 
+# Build Python wheel
+RUN python3 -m build --wheel
+
+# Create virtualenv and install wheel + runtime dependencies
 RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-RUN pip install --upgrade pip setuptools wheel
-RUN pip install dist/*.whl dash==3.0.4 dash-bootstrap-components==2.0.3 dash_ag_grid==31.3.1
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel \
+ && pip install --no-cache-dir dist/*.whl \
+    dash==3.0.4 \
+    dash-bootstrap-components==2.0.3 \
+    dash_ag_grid==31.3.1
 
-EXPOSE 8050
-
+# Copy entrypoint script
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Expose Dash port
+EXPOSE 8050
+
+# =========================
+# Stage 2: Runtime
+# =========================
+FROM python:3.13-slim AS runtime
+
+# Copy virtualenv from builder
+COPY --from=builder /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Copy entrypoint script
+COPY --from=builder /app/liquibook /app/liquibook
+COPY --from=builder /usr/local/bin/entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# Expose Dash port
+EXPOSE 8050
+
+# Run Liquibook entrypoint
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
