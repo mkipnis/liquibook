@@ -223,8 +223,9 @@ Liquibook provides Python integration through a SWIG-generated wrapper available
 pip install liquibook 
 ```
 
-The package includes a set of example applications demonstrating its capabilities. Additionally, Liquibox can be deployed using Docker : 
 [Examples](python/examples)
+
+The LiquiBookSandbox example can be deployed using Docker:
 ```
 docker run -p 8050:8050 ghcr.io/mkipnis/liquibook:latest
 ```
