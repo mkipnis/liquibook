@@ -230,11 +230,11 @@ docker run -it -p 8050:8050 ghcr.io/mkipnis/liquibooks:latest bash
 http://localhost:8050
 
 
-# Wheel build
+### Wheel build
 cmake -B build -S . -DCMAKE_INSTALL_PREFIX=$HOME
 cmake --build build --target install
 
-# Build wheel via scikit-build / pyproject.toml
+### Build wheel via scikit-build / pyproject.toml
 CMAKE_ARGS="-DLIQUIBOOK_SRC=$(pwd)/src -DBUILD_PYTHON=ON" python3 -m build --wheel --verbose
 
 pip3 install dist/*
