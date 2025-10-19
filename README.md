@@ -218,23 +218,24 @@ cmake --install build
 
 ## Python
 
-Liquibook provides Python integration through a SWIG-generated wrapper available on [PyPI](https://pypi.org/project/liquibook/). It can be installed using the command: 
+Liquibook provides Python integration through a SWIG-generated wrapper available on [PyPI](https://pypi.org/project/liquibook/)
 ```
 pip install liquibook 
 ```
 
 The package includes a set of example applications demonstrating its capabilities. Additionally, Liquibox can be deployed using Docker : 
+[Examples](python/examples)
 ```
-docker run -it -p 8050:8050 ghcr.io/mkipnis/liquibooks:latest bash
+docker run -p 8050:8050 ghcr.io/mkipnis/liquibook:latest
 ```
 http://localhost:8050
 
 
-### Wheel build
+#### Wheel build
 cmake -B build -S . -DCMAKE_INSTALL_PREFIX=$HOME
 cmake --build build --target install
 
-### Build wheel via scikit-build / pyproject.toml
+#### Build wheel via scikit-build / pyproject.toml
 CMAKE_ARGS="-DLIQUIBOOK_SRC=$(pwd)/src -DBUILD_PYTHON=ON" python3 -m build --wheel --verbose
 
 pip3 install dist/*
