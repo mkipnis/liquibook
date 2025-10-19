@@ -215,3 +215,27 @@ See the [Boost website](http://www.boost.org/) for details about using Boost in 
 cmake -S . -B build -DCMAKE_INSTALL_PREFIX=$HOME
 cmake --build build
 cmake --install build
+
+## Python
+
+Liquibook provides Python integration through a SWIG-generated wrapper available on [PyPI](https://pypi.org/project/liquibook/). It can be installed using the command: 
+```
+pip install liquibook 
+```
+
+The package includes a set of example applications demonstrating its capabilities. Additionally, Liquibox can be deployed using Docker : 
+```
+docker run -it -p 8050:8050 ghcr.io/mkipnis/liquibooks:latest bash
+```
+http://localhost:8050
+
+
+# Wheel build
+cmake -B build -S . -DCMAKE_INSTALL_PREFIX=$HOME
+cmake --build build --target install
+
+# Build wheel via scikit-build / pyproject.toml
+CMAKE_ARGS="-DLIQUIBOOK_SRC=$(pwd)/src -DBUILD_PYTHON=ON" python3 -m build --wheel --verbose
+
+pip3 install dist/*
+python3 python/examples/BasicOrderBookTest/basic_order_book_test.py
