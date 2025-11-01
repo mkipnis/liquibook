@@ -243,6 +243,7 @@ cmake --build build --target install
 ```
 CMAKE_ARGS="-DLIQUIBOOK_SRC=$(pwd)/src -DBUILD_PYTHON=ON" python3 -m build --wheel --verbose
 ```
+#### Install and test
 ```
 pip3 install dist/*
 python3 python/examples/BasicOrderBookTest/basic_order_book_test.py
