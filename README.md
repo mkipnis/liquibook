@@ -230,6 +230,7 @@ The LiquiBookSandbox example can be deployed using Docker:
 docker run -p 8050:8050 ghcr.io/mkipnis/liquibook:latest
 ```
 http://localhost:8050
+
 ![LiquiBook Sandbox Demo](python/examples/liquibook_demo.gif)
 
 
