@@ -234,17 +234,22 @@ http://localhost:8050
 ![LiquiBook Sandbox Demo](python/examples/liquibook_demo.gif)
 
 
+#### build lib with pybind
+```
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip pybind11
+python -m pybind11 --cmakedir
+cmake -S . -B build \\n  -DBUILD_PYTHON=ON \\n  -DPython3_EXECUTABLE="$VIRTUAL_ENV/bin/python" \\n  -Dpybind11_DIR="$(python -m pybind11 --cmakedir)"\n\ncmake --build build --config Release
+```
+
+
 #### Wheel build
 ```
-cmake -B build -S . -DCMAKE_INSTALL_PREFIX=$HOME
-cmake --build build --target install
-```
-#### Build wheel via scikit-build / pyproject.toml
-```
-CMAKE_ARGS="-DLIQUIBOOK_SRC=$(pwd)/src -DBUILD_PYTHON=ON" python3 -m build --wheel --verbose
-```
-#### Install and test
-```
-pip3 install dist/*
-python3 python/examples/BasicOrderBookTest/basic_order_book_test.py
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install scikit-build-core pybind11 cmake ninja
+python -m pip install --upgrade --force-reinstall build
+python -m build --version
+python -m build --wheel
 ```
